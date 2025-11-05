@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sneha Singh • Portfolio</title>
+  <meta name="description" content="Sneha Singh – Web Developer Portfolio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d10;         /* dark */
+      --card:#12161b;
+      --text:#e8eef5;
+      --muted:#9aa7b2;
+      --brand:#5dd7b9;
+      --accent:#7aa2ff;
+      --border:#1f2630;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    
+    /* Light theme overrides */
+    :root[data-theme="light"]{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#5b6773;
+      --brand:#16a085;
+      --accent:#3b82f6;
+      --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(2,6,23,.07);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    /* Layout */
+    .container{width:min(1100px,90%);margin-inline:auto}
+    section{padding:78px 0}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:40;background:color-mix(in hsl, var(--bg) 86%, transparent);backdrop-filter:saturate(1.1) blur(10px);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
+    .brand .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand .logo span{font-size:18px;color:white;font-weight:800}
+    nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+    nav a{color:var(--muted);text-decoration:none;font-weight:500}
+    nav a:hover, nav a.active{color:var(--text)}
+    .nav-cta{display:flex;align-items:center;gap:10px}
+    .btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+    .btn:hover{transform:translateY(-1px)}
+
+    /* Mobile menu */
+    .hamburger{display:none;background:none;border:0;color:var(--text);font-size:22px}
+    @media (max-width: 820px){
+      nav ul{display:none}
+      .hamburger{display:block}
+      .mobile-menu{display:none;position:absolute;top:58px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--border)}
+      .mobile-menu.open{display:block}
+      .mobile-menu a{display:block;padding:14px 5%;border-top:1px solid var(--border);color:var(--muted);text-decoration:none}
+      .mobile-menu a:hover{color:var(--text)}
+    }
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:64px 0}
+    .hero h1{font-size:clamp(28px,4vw,44px);line-height:1.15;margin:0 0 14px}
+    .hero p{color:var(--muted);margin:0 0 22px}
+    .pill{display:inline-flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:var(--muted);font-size:14px}
+    .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .hero img{width:100%;border-radius:16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+    @media (max-width: 900px){.hero{grid-template-columns:1fr}}
+
+    /* Cards */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px}
+    .card p{color:var(--muted);margin:0}
+    @media (max-width: 900px){.cards{grid-template-columns:1fr}}
+
+    /* Skills */
+    .skill{margin:16px 0}
+    .skill .row{display:flex;justify-content:space-between}
+    .bar{height:10px;border-radius:999px;background:color-mix(in hsl, var(--text) 8%, transparent);overflow:hidden;border:1px solid var(--border)}
+    .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));transition:width 1s ease}
+
+    /* Projects grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width: 1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width: 660px){.grid{grid-template-columns:1fr}}
+    .project{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .project img{aspect-ratio: 16/9;object-fit:cover;width:100%}
+    .project .body{padding:14px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;border:1px solid var(--border);padding:4px 8px;border-radius:999px;color:var(--muted)}
+
+    /* Contact */
+    form{display:grid;gap:12px}
+    input, textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+    textarea{min-height:120px;resize:vertical}
+
+    /* Footer + utilities */
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
+    .muted{color:var(--muted)}
+    .spacer{height:10px}
+    .hidden{display:none !important}
+
+    /* Scroll to top */
+    #toTop{position:fixed;right:18px;bottom:18px;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow);cursor:pointer}
+
+    /* Simple reveal animation */
+    [data-reveal]{opacity:0;transform:translateY(12px);transition:.5s ease}
+    [data-reveal].visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Home">
+        <div class="logo" aria-hidden="true"><span>S</span></div>
+        <span>Sneha Singh</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <button id="themeToggle" class="btn" aria-label="Toggle theme">🌓 Theme</button>
+        <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Mobile Menu">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="container">
+    <section class="hero" data-reveal>
+      <div>
+        <span class="pill">👋 Hello! I'm Sneha — Frontend Developer</span>
+        <h1>Building clean, fast, accessible websites with <span style="background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent">HTML, CSS & JavaScript</span>.</h1>
+        <p>I love crafting responsive UIs, tiny animations, and delightful user experiences. Below are a few projects and the tools I use.</p>
+        <div class="cta">
+          <a class="btn" href="#projects">View Projects →</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop" alt="Laptop, code editor, and coffee on a desk" loading="lazy">
+    </section>
+
+    <!-- Cards: quick highlights -->
+    <section aria-labelledby="highlights" data-reveal>
+      <h2 id="highlights">What I do</h2>
+      <div class="spacer"></div>
+      <div class="cards">
+        <article class="card">
+          <h3>Responsive UI</h3>
+          <p>Pixel-perfect layouts that adapt across screens using CSS Grid & Flexbox.</p>
+        </article>
+        <article class="card">
+          <h3>Accessible Web</h3>
+          <p>Keyboard friendly, semantic HTML, ARIA where needed, color-contrast aware.</p>
+        </article>
+        <article class="card">
+          <h3>Small-but-smart JS</h3>
+          <p>Theme toggles, smooth scrolling, navs, and performance-conscious interactions.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-title" data-reveal>
+      <h2 id="projects-title">Projects</h2>
+      <p class="muted">A few recent builds. More on my GitHub.</p>
+      <div class="spacer"></div>
+      <div class="grid">
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Screenshot placeholder of weather app">
+          <div class="body">
+            <h3>Weather App</h3>
+            <p class="muted">City search, geolocation, and clean UI. Built with fetch API.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          </div>
+        </article>
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=1200&auto=format&fit=crop" alt="Screenshot placeholder of e-commerce UI">
+          <div class="body">
+            <h3>E‑commerce UI</h3>
+            <p class="muted">Product cards, filters, and a cart with totals via localStorage.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          </div>
+        </article>
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1552261211-8b6356f6654b?q=80&w=1200&auto=format&fit=crop" alt="Screenshot placeholder of portfolio">
+          <div class="body">
+            <h3>Portfolio</h3>
+            <p class="muted">This site — built from scratch with semantic HTML & utility CSS.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" aria-labelledby="skills-title" data-reveal>
+      <h2 id="skills-title">Skills</h2>
+      <div class="skill">
+        <div class="row"><strong>HTML</strong><span class="muted">90%</span></div>
+        <div class="bar" aria-label="HTML proficiency"><span data-width="90%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="row"><strong>CSS</strong><span class="muted">85%</span></div>
+        <div class="bar" aria-label="CSS proficiency"><span data-width="85%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="row"><strong>JavaScript</strong><span class="muted">70%</span></div>
+        <div class="bar" aria-label="JS proficiency"><span data-width="70%"></span></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title" data-reveal>
+      <h2 id="about-title">About Me</h2>
+      <p class="muted">I'm a frontend developer focused on clarity, performance, and accessibility. I enjoy transforming ideas into interfaces and learning by building.</p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title" data-reveal>
+      <h2 id="contact-title">Contact</h2>
+      <form id="contactForm" novalidate>
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" required>
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          <span>Message</span>
+          <textarea name="message" placeholder="Tell me about your project" required></textarea>
+        </label>
+        <button class="btn" type="submit">Send</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Sneha Singh. Built with ❤️ using HTML, CSS & JS.</p>
+    </div>
+  </footer>
+
+  <button id="toTop" class="hidden" aria-label="Scroll to top">↑</button>
+
+  <script>
+    // ====== Theme toggle with localStorage ======
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const theme = savedTheme || (prefersLight ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ====== Mobile menu ======
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ====== Smooth section reveal on scroll ======
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, {threshold: 0.12});
+    revealEls.forEach(el => io.observe(el));
+
+    // ====== Skills bar animation when in view ======
+    const bars = document.querySelectorAll('.bar > span');
+    const barIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          const w = e.target.getAttribute('data-width');
+          e.target.style.width = w;
+          barIO.unobserve(e.target);
+        }
+      })
+    }, {threshold: 0.5});
+    bars.forEach(b => barIO.observe(b));
+
+    // ====== Scroll-to-top button ======
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      toTop.classList.toggle('hidden', window.scrollY < 400);
+    });
+    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // ====== Simple contact form validation (no backend) ======
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = data.get('name').trim();
+      const email = data.get('email').trim();
+      const message = data.get('message').trim();
+      if(!name || !email || !message){
+        msg.textContent = 'Please fill out all fields.';
+        return;
+      }
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!emailOk){
+        msg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      msg.textContent = 'Thanks, ' + name + '! Your message has been captured locally.';
+      form.reset();
+    });
+
+    // ====== Year in footer ======
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
